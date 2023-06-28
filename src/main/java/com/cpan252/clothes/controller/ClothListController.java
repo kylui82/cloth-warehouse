@@ -31,14 +31,13 @@ public class ClothListController {
 
 
     @GetMapping
-    public String showClothes(@SortDefault(sort="brand",direction = Sort.Direction.ASC)
-                                          Sort sort, Model model) {
+    public String showClothes(Model model) {
         return "clothlist";
     }
 
     @ModelAttribute
     public void clothes(Model model) {
-        var clothPage = clothRepositoryPaginated.findAll(PageRequest.of(0, PAGE_SIZE));
+        var clothPage = clothRepositoryPaginated.findAll(PageRequest.of(0, PAGE_SIZE, Sort.by("brand").ascending()));
         model.addAttribute("clothes", clothPage);
         model.addAttribute("currentPage", clothPage.getNumber());
         model.addAttribute("totalPages", clothPage.getTotalPages());
@@ -70,7 +69,7 @@ public class ClothListController {
             return "clothlist";
         }
         var clothPage = clothRepositoryPaginated.findAll(PageRequest.of(pageToSwitch.orElse(0),
-                PAGE_SIZE));
+                PAGE_SIZE, Sort.by("brand").ascending()));
         model.addAttribute("clothes", clothPage.getContent());
         model.addAttribute("currentPage", clothPage.getNumber());
         return "clothlist";

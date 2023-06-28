@@ -14,9 +14,8 @@
   </head>
 
   <body>
-
+  <h2>Clothes List</h2>
     <div class="d-flex flex-row mb-3">
-
       <div
         class="card ms-3 me-3"
         th:each="cloth: ${clothes}"
@@ -38,12 +37,27 @@
       </div>
     </div>
 
-    Result
+    <ul class="pagination mt-5">
+      <li class="page-item">
+        <a class="page-link" th:href="@{/clothlist/switchPage(pageToSwitch=${currentPage - 1})}">Previous</a>
+      </li>
+      <li
+              class="page-item"
+              th:classappend="${currentPage + 1 eq page} ? 'active' : 'not'"
+              th:each="page: ${#numbers.sequence(1, totalPages)}"
+      >
+        <a class="page-link" th:text="${page}" th:href="@{/clothlist/switchPage(pageToSwitch=${page - 1})}" />
+      </li>
+      <li class="page-item"><a class="page-link" th:href="@{/clothlist/switchPage(pageToSwitch=${currentPage + 1})}">Next</a></li>
+    </ul>
+
     <div
             class="d-flex flex-column bd-highlight justify-content-center align-items-center w-75 ms-5"
     >
+
       <form class="mt-3" method="post" th:object="${clothesByBrandDto}">
         <div class="mb-3">
+          <h2>Search by brand</h2>
           <label for="brand" class="form-label"
           >Cloth brand:
           </label>
@@ -74,23 +88,8 @@
         <button class="btn btn-primary mt-5">
           Search By brand
         </button>
-        <button class="btn btn-primary mt-5">
-          Sort By brand
-        </button>
-      </form>  kmklm
-      <ul class="pagination mt-5">
-        <li class="page-item">
-          <a class="page-link" th:href="@{/clothlist/switchPage(pageToSwitch=${currentPage - 1})}">Previous</a>
-        </li>
-        <li
-                class="page-item"
-                th:classappend="${currentPage + 1 eq page} ? 'active' : 'not'"
-                th:each="page: ${#numbers.sequence(1, totalPages)}"
-        >
-          <a class="page-link" th:text="${page}" th:href="@{/clothlist/switchPage(pageToSwitch=${page - 1})}" />
-        </li>
-        <li class="page-item"><a class="page-link" th:href="@{/clothlist/switchPage(pageToSwitch=${currentPage + 1})}">Next</a></li>
-      </ul>
+      </form>
+
       </nav>
     </div>
 
