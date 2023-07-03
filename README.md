@@ -2,6 +2,7 @@
 
 ## Description
 - A clothes warehouse control application in Spring Boot, Thymeleaf and HTML form
+- Implement Data validation on form submittion
 - Implement JPA Repository with pagination and sorting
 
 #### Add cloth
